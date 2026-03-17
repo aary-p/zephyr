@@ -93,7 +93,12 @@
 
 	gpio: gpio@10005000 {
 		compatible = "simple-bus";
-		reg = <0x10005000 0x1000>;
+		reg = <0x10005000 0x1000>,
+		      <0x11c00000 0x1000>,
+		      <0x11e10000 0x1000>,
+		      <0x11e20000 0x1000>,
+		      <0x11ea0000 0x1000>;
+		reg-names = "iocfg0", "iocfg_rm", "iocfg_lt", "iocfg_lm", "iocfg_rt";
 		#address-cells = <1>;
 		#size-cells = <0>;
 

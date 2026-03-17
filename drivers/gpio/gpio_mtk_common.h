@@ -33,6 +33,8 @@ typedef enum {
 
 typedef uint32_t (*reg_offset_fct)(const struct device *dev, reg_type_t reg_type);
 
+typedef int (*pull_configure_fct)(const struct device *dev, gpio_pin_t pin, gpio_flags_t flags);
+
 typedef struct {
 	struct gpio_driver_config common;
 	DEVICE_MMIO_NAMED_ROM(reg_base);
@@ -43,6 +45,7 @@ typedef struct {
 	uint32_t gpio_pin_mask;
 
 	reg_offset_fct reg_offset;
+	pull_configure_fct pull_configure;
 } gpio_mtk_config_t;
 
 typedef struct {

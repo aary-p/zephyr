@@ -60,6 +60,7 @@ int gpio_mtk_pin_configure(const struct device *dev, gpio_pin_t pin, gpio_flags_
 {
 	int ret;
 	uint32_t shift = pin % 32;
+	const gpio_mtk_config_t *gpio_config = dev->config;
 
 	/* Set direction */
 	if ((flags & GPIO_OUTPUT) != 0) {
@@ -101,6 +102,10 @@ int gpio_mtk_pin_configure(const struct device *dev, gpio_pin_t pin, gpio_flags_
 		ret = mmio_write32(dev, REG_TYPE_PULL_EN_CLR, (uint32_t)(1 << shift));
 	}
 #endif
+ 
+	if (gpio_config->pull_configure != NULL) {
+		ret = gpio_config->pull_configure(dev, pin, flags);
+	}
 
 	return ret;
 }
